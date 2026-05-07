@@ -4,6 +4,7 @@ import com.example.lession2_2.Model.Emloyees;
 import com.example.lession2_2.Model.EmployeeFilter;
 import com.example.lession2_2.Service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,18 +26,19 @@ public class EmployeesController {
           emloyeesList.add(new Emloyees(5,"Tran Van B3","abc42@gmail.com","Sale"));
           emloyeesList.add(new Emloyees(6,"Phan Van C3","abc43@gmail.com","IT"));
      }
-     // GET
+     // GET   ALL- trả về ok tại đây
      @GetMapping
-     public List<Emloyees> getAllEmployees(){
-          return emloyeesList;
+     public ResponseEntity<EmployeesService> getAllEmployees(){
+          return ResponseEntity.ok(emloyeesList);
      }
      //SS2_4 tìm kiếm theo id=> dùng @PathVariable
+     //GET BY ID - trả về 200 OK or 404
      @GetMapping("/{id}")
-     public Object getEmployeeById(@PathVariable int id){
+     public ResponseEntity<?> getEmployeeById(@PathVariable int id){
           //duyệt qua for để tìm kiết
           for (Emloyees e : emloyeesList){
                if (e.getId() == id){
-                    return e;
+                    return ResponseEntity.ok(e);
                }
           }
           return "ID " +  id  + " Không tồn tại" ;
