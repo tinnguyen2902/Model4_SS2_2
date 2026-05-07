@@ -3,23 +3,26 @@ package com.example.lession2_2.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Emloyees {
-    private int id;
+    private Integer id;
     private String fullName;
     private String email;
     private String department;
 
-    public Emloyees(int id, String fullName, String email, String department) {
+    public Emloyees() {
+    }
+
+    public Emloyees(Integer id, String fullName, String email, String department) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.department = department;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

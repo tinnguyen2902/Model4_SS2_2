@@ -85,6 +85,51 @@ public class EmployeesController {
           // nếu NG
           return result;
      }
+     //SS2.5
+     // thêm mới
+     @PostMapping
+     public String addEmployee(@RequestBody Emloyees newE){
+          // tự động tăng id
+          int nextID = 1;
+          if (!emloyeesList.isEmpty()){
+               // tự động tăng từ người cuối thêm 1
+               nextID = emloyeesList.get(emloyeesList.size()-1).getId()+ 1;
+          }
+          // gán ID mới
+          newE.setId(nextID);
+          // thêm nv mới
+          emloyeesList.add(newE);
+          return "Thêm mới ok id: " + nextID;
+     }
+     //cập nhật nhân viên
+     @PutMapping("/{id}")
+     public String updateEmployee(@PathVariable Integer id, @RequestBody Emloyees updatedE){
+          // tìm nhân viên dự và pathvariable
+          for ( int i = 0;i<emloyeesList.size();i++){
+               Emloyees e = emloyeesList.get(i);
+               if (e.getId() == id){
+                    e.setFullName(updatedE.getFullName());
+                    e.setEmail(updatedE.getEmail());
+                    e.setDepartment(updatedE.getDepartment());
+                    return "Cập nhật nv có id = " + id + "OK";
+               }
+          }
+          return "Không tìm thấy nv có " + id;
+     }
+     // xóa
+     @DeleteMapping("/{id}")
+     public String deleteEmployee(@PathVariable Integer id){
+          //duyệt để tìm id
+          for ( int i = 0;i<emloyeesList.size();i++){
+               Emloyees e = emloyeesList.get(i);
+               if (e.getId() == id){
+                    emloyeesList.remove(i);
+                    return "Xóa ok" + id;
+               }
+          }
+          // nếu k có id
+          return "Không có nv có id là: " + id;
+     }
 
 
 }
